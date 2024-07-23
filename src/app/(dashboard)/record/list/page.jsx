@@ -7,17 +7,12 @@ const getData = async () => {
     {
       id: 1,
       date: '17/07/2024',
-      conversion: '83.2',
-      role: 'editor',
-      username: 'gslixby0',
-      country: 'El Salvador',
-      contact: '(479) 232-9151',
-      email: 'gslixby0@abc.net.au',
-      currentPlan: 'enterprise',
-      status: 'inactive',
-      avatar: '',
-      avatarColor: 'primary',
-      billing: 'Auto Debit'
+      conversionRate: 83.2,
+      revenue: '8,00,00,000',
+      salaryDirect: '2,00,00,000',
+      salaryIndirect: '1,50,00,000',
+      usExpenses: '2,49,00,000',
+      expenseRatio: '43.00%'
     }
   ]
 

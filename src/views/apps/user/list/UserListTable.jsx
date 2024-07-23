@@ -118,63 +118,59 @@ const UserListTable = ({ tableData }) => {
         cell: ({ row }) => (
           <div className='flex items-center gap-4'>
             <div className='flex flex-col'>
-              <Typography color='text.primary' className='font-medium'>
+              <Typography className='capitalize'>
                 {row.original.date}
               </Typography>
             </div>
           </div>
         )
       }),
-      columnHelper.accessor('conversion', {
-        header: 'Conversion',
+      columnHelper.accessor('revenue', {
+        header: 'Revenue',
         cell: ({ row }) => (
           <div className='flex items-center gap-4'>
             <div className='flex flex-col'>
-              <Typography color='text.primary' className='font-medium'>
-                {row.original.conversion}
+              <Typography className='capitalize'>
+                ₹{row.original.revenue}
               </Typography>
             </div>
           </div>
         )
       }),
-      columnHelper.accessor('role', {
-        header: 'Revenue',
+      columnHelper.accessor('salaryDirect', {
+        header: 'Salary Direct',
         cell: ({ row }) => (
-          <div className='flex items-center gap-2'>
-            <Icon
-              className={userRoleObj[row.original.role].icon}
-              sx={{ color: `var(--mui-palette-${userRoleObj[row.original.role].color}-main)` }}
-            />
-            <Typography className='capitalize' color='text.primary'>
-              {row.original.role}
+            <Typography className='capitalize'>
+              ₹{row.original.salaryDirect}
             </Typography>
-          </div>
         )
       }),
-      columnHelper.accessor('currentPlan', {
-        header: 'Salary - Direct',
+      columnHelper.accessor('salaryIndirect', {
+        header: 'Salary Indirect',
         cell: ({ row }) => (
-          <Typography className='capitalize' color='text.primary'>
-            {row.original.currentPlan}
+          <Typography className='capitalize'>
+            ₹{row.original.salaryIndirect}
           </Typography>
         )
       }),
-      columnHelper.accessor('billing', {
-        header: 'Salary - Indirect',
-        cell: ({ row }) => <Typography>{row.original.billing}</Typography>
-      }),
-      columnHelper.accessor('status', {
+      columnHelper.accessor('usExpenses', {
         header: 'US Expenses',
+        cell: ({ row }) => <Typography>₹{row.original.usExpenses}</Typography>
+      }),
+      columnHelper.accessor('conversionRate', {
+        header: 'Conversion Rate',
         cell: ({ row }) => (
-          <div className='flex items-center gap-3'>
-            <Chip
-              variant='tonal'
-              className='capitalize'
-              label={row.original.status}
-              color={userStatusObj[row.original.status]}
-              size='small'
-            />
-          </div>
+          <Typography className='capitalize'>
+            ₹{row.original.conversionRate}
+          </Typography>
+        )
+      }),
+      columnHelper.accessor('expenseRatio', {
+        header: 'Expense Ratio',
+        cell: ({ row }) => (
+          <Typography className='capitalize'>
+            {row.original.expenseRatio}
+          </Typography>
         )
       }),
       columnHelper.accessor('action', {
@@ -186,7 +182,7 @@ const UserListTable = ({ tableData }) => {
             </IconButton>
             <IconButton>
               <Link href={'/apps/user/view'} className='flex'>
-                <i className='tabler-eye text-[22px] text-textSecondary' />
+                <i className='tabler-trash text-[22px] text-textSecondary' />
               </Link>
             </IconButton>
           </div>
@@ -252,12 +248,6 @@ const UserListTable = ({ tableData }) => {
             <MenuItem value='50'>50</MenuItem>
           </CustomTextField>
           <div className='flex flex-col sm:flex-row is-full sm:is-auto items-start sm:items-center gap-4'>
-            <DebouncedInput
-              value={globalFilter ?? ''}
-              onChange={value => setGlobalFilter(String(value))}
-              placeholder='Search Record'
-              className='is-full sm:is-auto'
-            />
             <Button
               variant='contained'
               startIcon={<i className='tabler-plus' />}
