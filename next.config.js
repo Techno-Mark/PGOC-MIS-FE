@@ -2,7 +2,9 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  basePath: process.env.BASEPATH,
+  env: {
+    API: process.env.API
+  },
 
   // TODO: below line is added to resolve twice event dispatch in the calendar reducer
   reactStrictMode: false

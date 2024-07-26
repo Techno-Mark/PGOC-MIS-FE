@@ -63,7 +63,13 @@ const Logo = () => {
   // return <Img src='/next.svg' width={100} height={25} alt='logo' /> // for example
   return (
     <Link href='/' className='flex items-center'>
-      <VuexyLogo className='text-2xl text-primary' />
+      {/* <VuexyLogo className='text-2xl text-primary' /> */}
+      <img
+        width='50'
+        height='50'
+        src='https://pacificgroupcompanies.com/wp-content/uploads/2022/07/512x512-Favicon-optimized.png'
+        alt='Favicon'
+      ></img>
       <LogoText
         ref={logoTextRef}
         isHovered={isHovered}
