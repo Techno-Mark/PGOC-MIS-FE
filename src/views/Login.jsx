@@ -1,3 +1,4 @@
+/* eslint-disable padding-line-between-statements */
 'use client'
 
 // React Imports
@@ -12,16 +13,12 @@ import { styled, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
-import Checkbox from '@mui/material/Checkbox'
 import Button from '@mui/material/Button'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import Divider from '@mui/material/Divider'
 
-// Third-party Imports
 import classnames from 'classnames'
 
-// Component Imports
-import Link from '@components/Link'
+import { toast } from 'react-toastify'
+
 import Logo from '@components/layout/shared/Logo'
 import CustomTextField from '@core/components/mui/TextField'
 
@@ -31,6 +28,8 @@ import themeConfig from '@configs/themeConfig'
 // Hook Imports
 import { useImageVariant } from '@core/hooks/useImageVariant'
 import { useSettings } from '@core/hooks/useSettings'
+
+import { callAPI } from '@/utils/API/callAPI'
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -57,8 +56,11 @@ const MaskImg = styled('img')({
 })
 
 const LoginV2 = ({ mode }) => {
-  // States
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [errors, setErrors] = useState({ email: '', password: '' })
+  const [loading, setLoading] = useState(false)
 
   // Vars
   const darkImg = '/images/pages/auth-mask-dark.png'
@@ -84,6 +86,67 @@ const LoginV2 = ({ mode }) => {
   )
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+
+  const validateEmail = email => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    return re.test(email)
+  }
+
+  const validatePassword = password => {
+    return password.length >= 1
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    let emailError = ''
+    let passwordError = ''
+
+    if (email.trim().length <= 0) {
+      emailError = 'Email is required'
+    } else if (!validateEmail(email)) {
+      emailError = 'Invalid email address'
+    }
+
+    if (!validatePassword(password.trim())) {
+      passwordError = 'Password is required'
+    }
+
+    if (emailError || passwordError) {
+      setErrors({ email: emailError, password: passwordError })
+
+      return
+    }
+
+    setErrors({ email: '', password: '' })
+
+    if (errors.email === '' && errors.password === '') {
+      setLoading(true)
+      const params = {
+        email: email,
+        password: password
+      }
+      const url = `${process.env.API}/auth/signin`
+      const successCallback = (ResponseData, error, ResponseStatus, Message) => {
+        if (ResponseStatus === 'success' && error === false) {
+          toast.success(Message)
+          setEmail('')
+          setPassword('')
+          setErrors({ email: '', password: '' })
+          localStorage.setItem('token', ResponseData.Token)
+          localStorage.setItem('userId', ResponseData.UserId)
+          router.push('/')
+          setLoading(false)
+        } else {
+          setLoading(false)
+        }
+      }
+      callAPI(url, params, successCallback, 'POST')
+    } else {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className='flex bs-full justify-center'>
@@ -112,22 +175,33 @@ const LoginV2 = ({ mode }) => {
           <div className='flex flex-col gap-1'>
             <Typography variant='h4'>{`Welcome to ${themeConfig.templateName}!`}</Typography>
           </div>
-          <form
-            noValidate
-            autoComplete='off'
-            onSubmit={e => {
-              e.preventDefault()
-              router.push('/')
-            }}
-            className='flex flex-col gap-5'
-          >
-            <CustomTextField autoFocus fullWidth label='Username' placeholder='Username' />
+          <form noValidate autoComplete='off' onSubmit={handleSubmit} className='flex flex-col gap-5'>
+            <CustomTextField
+              autoFocus
+              fullWidth
+              label='Email'
+              placeholder='Email'
+              value={email}
+              onChange={e => {
+                setEmail(e.target.value)
+                setErrors({ ...errors, email: '' })
+              }}
+              error={!!errors.email}
+              helperText={errors.email}
+            />
             <CustomTextField
               fullWidth
               label='Password'
               placeholder='············'
               id='outlined-adornment-password'
               type={isPasswordShown ? 'text' : 'password'}
+              value={password}
+              onChange={e => {
+                setPassword(e.target.value)
+                setErrors({ ...errors, password: '' })
+              }}
+              error={!!errors.password}
+              helperText={errors.password}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position='end'>

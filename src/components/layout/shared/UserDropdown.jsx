@@ -1,12 +1,8 @@
+/* eslint-disable import/order */
 'use client'
 
-// React Imports
 import { useRef, useState } from 'react'
-
-// Next Imports
 import { useRouter } from 'next/navigation'
-
-// MUI Imports
 import { styled } from '@mui/material/styles'
 import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
@@ -16,12 +12,13 @@ import Paper from '@mui/material/Paper'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import MenuList from '@mui/material/MenuList'
 import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
-import MenuItem from '@mui/material/MenuItem'
 import Button from '@mui/material/Button'
+import PasswordDialog from './PasswordDialog'
 
 // Hook Imports
 import { useSettings } from '@core/hooks/useSettings'
+import { callAPI } from '@/utils/API/callAPI'
+import { toast } from 'react-toastify'
 
 // Styled component for badge content
 const BadgeContentSpan = styled('span')({
@@ -34,15 +31,11 @@ const BadgeContentSpan = styled('span')({
 })
 
 const UserDropdown = () => {
-  // States
-  const [open, setOpen] = useState(false)
-
-  // Refs
   const anchorRef = useRef(null)
-
-  // Hooks
   const router = useRouter()
   const { settings } = useSettings()
+  const [open, setOpen] = useState(false)
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
 
   const handleDropdownOpen = () => {
     !open ? setOpen(true) : setOpen(false)
@@ -61,8 +54,23 @@ const UserDropdown = () => {
   }
 
   const handleUserLogout = async () => {
-    // Redirect to login page
-    router.push('/login')
+    const params = {
+      userId: Number(localStorage.getItem('userId'))
+    }
+
+    const url = `${process.env.API}/auth/signout`
+
+    const successCallback = (ResponseData, error, ResponseStatus, Message) => {
+      if (ResponseStatus === 'success' && error === false) {
+        toast.success(Message)
+        localStorage.clear()
+        router.push('/login')
+      } else {
+        router.push('/login')
+      }
+    }
+
+    callAPI(url, params, successCallback, 'POST')
   }
 
   return (
@@ -102,9 +110,7 @@ const UserDropdown = () => {
               <ClickAwayListener onClickAway={e => handleDropdownClose(e)}>
                 <MenuList>
                   <div className='flex items-center plb-2 pli-6 gap-2' tabIndex={-1}>
-                    <Avatar alt='John Doe' >
-                      J
-                    </Avatar>
+                    <Avatar alt='John Doe'>J</Avatar>
                     <div className='flex items-start flex-col'>
                       <Typography className='font-medium' color='text.primary'>
                         John Doe
@@ -112,7 +118,18 @@ const UserDropdown = () => {
                       <Typography variant='caption'>admin@vuexy.com</Typography>
                     </div>
                   </div>
-                  <div className='flex items-center plb-2 pli-3'>
+                  <div className='flex flex-col gap-2 mt-2 items-center plb-2 pli-3'>
+                    <Button
+                      fullWidth
+                      variant='outlined'
+                      color='warning'
+                      size='small'
+                      endIcon={<i className='tabler-lock' />}
+                      onClick={() => setOpenPasswordDialog(true)}
+                      sx={{ '& .MuiButton-endIcon': { marginInlineStart: 1.5 } }}
+                    >
+                      Change Password
+                    </Button>
                     <Button
                       fullWidth
                       variant='contained'
@@ -131,6 +148,13 @@ const UserDropdown = () => {
           </Fade>
         )}
       </Popper>
+
+      <PasswordDialog
+        open={openPasswordDialog}
+        handleClose={() => {
+          setOpenPasswordDialog(false)
+        }}
+      />
     </>
   )
 }

@@ -1,9 +1,9 @@
 const verticalMenuData = () => [
-  {
-    label: 'Home',
-    href: '/home',
-    icon: 'tabler-smart-home'
-  },
+  // {
+  //   label: 'Home',
+  //   href: '/home',
+  //   icon: 'tabler-smart-home'
+  // },
   {
     label: 'About',
     href: '/about',
