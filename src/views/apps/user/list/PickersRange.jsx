@@ -32,10 +32,10 @@ const PickersRange = ({ startDateRange, endDateRange, handleOnChangeRange }) => 
         shouldCloseOnSelect={false}
         id='date-range-picker-months'
         onChange={handleOnChangeRange}
-        customInput={<CustomInput end={endDateRange} start={startDateRange} />}
+        customInput={<CustomInput end={endDateRange} start={startDateRange} label='From Date - To Date' />}
       />
       {(startDateRange || endDateRange) && (
-        <span onClick={() => handleOnChangeRange([null, null])}>
+        <span onClick={() => handleOnChangeRange([null, null])} className='!pt-8'>
           <Close />
         </span>
       )}
