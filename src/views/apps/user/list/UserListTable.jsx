@@ -69,6 +69,7 @@ const UserListTable = () => {
 
   const [data, setData] = useState([])
   const [totalCount, setTotalCount] = useState(0)
+  const [isCreatedToday, setIsCreatedToday] = useState(false)
   const [loading, setLoading] = useState(true)
   const [selectedRows, setSelectedRows] = useState([])
   const [isAllRowsSelected, setIsAllRowsSelected] = useState(false)
@@ -114,38 +115,38 @@ const UserListTable = () => {
 
   const columns = useMemo(
     () => [
-      {
-        id: 'select',
-        header: ({ table }) => (
-          <div className='flex items-center'>
-            <Checkbox
-              checked={isAllRowsSelected}
-              indeterminate={selectedRows.length > 0 && selectedRows.length < table.getRowModel().rows.length}
-              onChange={e => {
-                const checked = e.target.checked
+      // {
+      //   id: 'select',
+      //   header: ({ table }) => (
+      //     <div className='flex items-center'>
+      //       <Checkbox
+      //         checked={isAllRowsSelected}
+      //         indeterminate={selectedRows.length > 0 && selectedRows.length < table.getRowModel().rows.length}
+      //         onChange={e => {
+      //           const checked = e.target.checked
 
-                handleSelectAll(checked, table)
-                table.getToggleAllRowsSelectedHandler()(e)
-              }}
-            />
-          </div>
-        ),
-        cell: ({ row }) => (
-          <div className='flex items-center'>
-            <Checkbox
-              value={row.original.RecordId}
-              checked={selectedRows.includes(row.original.RecordId)}
-              disabled={!row.getCanSelect()}
-              onChange={e => {
-                const checked = e.target.checked
+      //           handleSelectAll(checked, table)
+      //           table.getToggleAllRowsSelectedHandler()(e)
+      //         }}
+      //       />
+      //     </div>
+      //   ),
+      //   cell: ({ row }) => (
+      //     <div className='flex items-center'>
+      //       <Checkbox
+      //         value={row.original.RecordId}
+      //         checked={selectedRows.includes(row.original.RecordId)}
+      //         disabled={!row.getCanSelect()}
+      //         onChange={e => {
+      //           const checked = e.target.checked
 
-                handleSelectRow(checked, row.original.RecordId)
-                row.getToggleSelectedHandler()(e)
-              }}
-            />
-          </div>
-        )
-      },
+      //           handleSelectRow(checked, row.original.RecordId)
+      //           row.getToggleSelectedHandler()(e)
+      //         }}
+      //       />
+      //     </div>
+      //   )
+      // },
       columnHelper.accessor('date', {
         header: 'Date',
         cell: ({ row }) => (
@@ -198,7 +199,7 @@ const UserListTable = () => {
         header: 'Action',
         cell: ({ row }) => (
           <div className='flex items-center'>
-            <IconButton
+            {/* <IconButton
               onClick={() => {
                 setRowId(row.original.RecordId)
                 setEditData(row.original)
@@ -206,7 +207,7 @@ const UserListTable = () => {
               }}
             >
               <i className='tabler-pencil text-[22px] text-textSecondary' />
-            </IconButton>
+            </IconButton> */}
             <IconButton
               onClick={() => {
                 setRowId(row.original.RecordId)
@@ -269,6 +270,7 @@ const UserListTable = () => {
       if (ResponseStatus === 'success' && error === false) {
         setData(ResponseData.records)
         setTotalCount(ResponseData.totalRecords)
+        setIsCreatedToday(ResponseData.todaysRecords)
         setLoading(false)
       } else {
         setLoading(false)
@@ -303,7 +305,7 @@ const UserListTable = () => {
               handleOnChangeRange={handleOnChangeRange}
             />
 
-            <Button
+            {/* <Button
               variant='contained'
               disabled={selectedRows.length <= 0}
               color='success'
@@ -311,12 +313,13 @@ const UserListTable = () => {
               className={`is-full sm:is-auto ${selectedRows.length <= 0 && 'cursor-not-allowed'}`}
             >
               Submit
-            </Button>
+            </Button> */}
             <Button
               variant='contained'
               startIcon={<i className='tabler-plus' />}
               onClick={() => setAddUser(true)}
-              className='is-full sm:is-auto whitespace-nowrap !w-48'
+              className='is-full sm:is-auto whitespace-nowrap !w-48 mt-4'
+              disabled={isCreatedToday}
             >
               Add Record
             </Button>

@@ -34,7 +34,7 @@ const DeleteDialog = ({ open, handleClose, rowId, getList }) => {
     <Dialog fullWidth maxWidth='xs' open={open} onClose={handleClose}>
       <DialogContent className='flex items-center flex-col text-center sm:pbs-16 sm:pbe-6 sm:pli-16'>
         <i className='tabler-alert-circle text-[88px] mbe-6 text-warning' />
-        <Typography variant='h5'>Are you sure you want to delete this record? This action cannot be undone.</Typography>
+        <Typography variant='h5'>Are you sure you want to delete this record?</Typography>
       </DialogContent>
       <DialogActions className='justify-center pbs-0 sm:pbe-16 sm:pli-16'>
         <Button variant='contained' onClick={handleDelete}>
