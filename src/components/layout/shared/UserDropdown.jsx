@@ -39,7 +39,7 @@ const UserDropdown = () => {
   const [userName, setUserName] = useState('')
 
   useEffect(() => {
-    setUserName(localStorage.getItem('username'))
+    setUserName(localStorage.getItem('username') || '')
   }, [])
 
   const handleDropdownOpen = () => {
@@ -89,11 +89,11 @@ const UserDropdown = () => {
       >
         <Avatar
           ref={anchorRef}
-          alt={userName}
+          alt={userName.length > 0 ? userName : ''}
           onClick={handleDropdownOpen}
           className='cursor-pointer bs-[38px] is-[38px]'
         >
-          {userName.charAt(0)}
+          {userName.length > 0 ? userName.charAt(0) : ''}
         </Avatar>
       </Badge>
       <Popper
@@ -115,7 +115,9 @@ const UserDropdown = () => {
               <ClickAwayListener onClickAway={e => handleDropdownClose(e)}>
                 <MenuList>
                   <div className='flex items-center plb-2 pli-6 gap-2' tabIndex={-1}>
-                    <Avatar alt={userName}>{userName.charAt(0)}</Avatar>
+                    <Avatar alt={userName.length > 0 ? userName.charAt(0) : ''}>
+                      {userName.length > 0 ? userName.charAt(0) : ''}
+                    </Avatar>
                     <div className='flex items-start flex-col'>
                       <Typography className='font-medium' color='text.primary'>
                         {userName}
