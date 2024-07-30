@@ -261,7 +261,7 @@ const UserListTable = () => {
       limit: table.getState().pagination.pageSize,
       startDate: !!startDateRange ? dayjs(startDateRange).format('MM/DD/YYYY') : null,
       endDate: !!endDateRange ? dayjs(endDateRange).format('MM/DD/YYYY') : null,
-      submitted: false
+      submitted: true
     }
 
     const url = `${process.env.API}/consolidated-data/list`

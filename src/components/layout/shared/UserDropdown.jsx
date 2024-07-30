@@ -1,7 +1,7 @@
 /* eslint-disable import/order */
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { styled } from '@mui/material/styles'
 import Badge from '@mui/material/Badge'
@@ -36,6 +36,11 @@ const UserDropdown = () => {
   const { settings } = useSettings()
   const [open, setOpen] = useState(false)
   const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    setUserName(localStorage.getItem('username') || '')
+  }, [])
 
   const handleDropdownOpen = () => {
     !open ? setOpen(true) : setOpen(false)
@@ -84,11 +89,11 @@ const UserDropdown = () => {
       >
         <Avatar
           ref={anchorRef}
-          alt='John Doe'
+          alt={userName.length > 0 ? userName : ''}
           onClick={handleDropdownOpen}
           className='cursor-pointer bs-[38px] is-[38px]'
         >
-          J
+          {userName.length > 0 ? userName.charAt(0) : ''}
         </Avatar>
       </Badge>
       <Popper
@@ -110,12 +115,13 @@ const UserDropdown = () => {
               <ClickAwayListener onClickAway={e => handleDropdownClose(e)}>
                 <MenuList>
                   <div className='flex items-center plb-2 pli-6 gap-2' tabIndex={-1}>
-                    <Avatar alt='John Doe'>J</Avatar>
+                    <Avatar alt={userName.length > 0 ? userName.charAt(0) : ''}>
+                      {userName.length > 0 ? userName.charAt(0) : ''}
+                    </Avatar>
                     <div className='flex items-start flex-col'>
                       <Typography className='font-medium' color='text.primary'>
-                        John Doe
+                        {userName}
                       </Typography>
-                      <Typography variant='caption'>admin@vuexy.com</Typography>
                     </div>
                   </div>
                   <div className='flex flex-col gap-2 mt-2 items-center plb-2 pli-3'>

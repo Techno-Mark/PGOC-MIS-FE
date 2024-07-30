@@ -127,7 +127,7 @@ const LoginV2 = ({ mode }) => {
         email: email,
         password: password
       }
-      const url = `${process.env.API}/auth/signin`
+      const url = `${process.env.API}/authsignin`
       const successCallback = (ResponseData, error, ResponseStatus, Message) => {
         if (ResponseStatus === 'success' && error === false) {
           toast.success(Message)
@@ -136,6 +136,7 @@ const LoginV2 = ({ mode }) => {
           setErrors({ email: '', password: '' })
           localStorage.setItem('token', ResponseData.Token)
           localStorage.setItem('userId', ResponseData.UserId)
+          localStorage.setItem('username', ResponseData.Username)
           router.push('/')
           setLoading(false)
         } else {

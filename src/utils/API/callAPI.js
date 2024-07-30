@@ -47,7 +47,7 @@ export const callAPI = async (url, params, successCallback, method) => {
       if (Message === null) {
         toast.error('Please try again later.')
       } else {
-        toast.error(Message)
+        toast.error(Message || ResponseData)
       }
 
       successCallback(null, true, ResponseStatus)
