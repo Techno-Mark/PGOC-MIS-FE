@@ -69,7 +69,7 @@ const PasswordDialog = ({ open, handleClose }) => {
         confirmPassword: confirmPassword
       }
 
-      const url = `${process.env.API}/reset-password`
+      const url = `${process.env.API}/auth/reset-password`
 
       const successCallback = (ResponseData, error, ResponseStatus, Message) => {
         if (ResponseStatus === 'success' && error === false) {
@@ -99,7 +99,6 @@ const PasswordDialog = ({ open, handleClose }) => {
       <DialogContent className='flex items-center flex-col text-center sm:pbs-16 sm:pbe-6 sm:pli-16'>
         <div className='flex flex-col items-start justify-center text-start gap-1'>
           <Typography variant='h4'>Change Password 🔒</Typography>
-          <Typography>Your new password must be different from previously used passwords</Typography>
         </div>
         <form
           noValidate
