@@ -13,8 +13,8 @@ const PickersRange = ({ startDateRange, endDateRange, handleOnChangeRange }) => 
   const CustomInput = forwardRef((props, ref) => {
     const { label, start, end, ...rest } = props
 
-    const startDate = start !== null ? `${format(start, 'MM/dd/yyyy')}` : null
-    const endDate = end !== null ? ` - ${format(end, 'MM/dd/yyyy')}` : null
+    const startDate = start !== null ? `${format(start, 'yyyy-MM-dd')}` : null
+    const endDate = end !== null ? ` - ${format(end, 'yyyy-MM-dd')}` : null
 
     const value = `${startDate !== null ? startDate : ''}${endDate !== null ? endDate : ''}`
 

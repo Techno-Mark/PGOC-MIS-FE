@@ -150,18 +150,19 @@ const UserListTable = () => {
       columnHelper.accessor('date', {
         header: 'Date',
         cell: ({ row }) => (
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center'>
             <div className='flex flex-col'>
               <Typography className='capitalize'>{row.original.date}</Typography>
             </div>
           </div>
         )
       }),
+
       columnHelper.accessor('revenue', {
-        header: 'Revenue',
+        header: () => <div className='text-right'>Revenue</div>,
         cell: ({ row }) => (
-          <div className='flex items-center gap-4'>
-            <div className='flex flex-col'>
+          <div className='text-right'>
+            <div className='flex flex-col text-right'>
               <Typography className='capitalize'>
                 ₹{!!row.original.revenue ? row.original.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
               </Typography>
@@ -170,35 +171,53 @@ const UserListTable = () => {
         )
       }),
       columnHelper.accessor('salaryDirect', {
-        header: 'Salary Direct',
+        header: () => <div className='text-right'>Salary Direct</div>,
         cell: ({ row }) => (
-          <Typography className='capitalize'>
-            ₹{row.original.salaryDirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          </Typography>
+          <div className='text-right'>
+            <div className='flex flex-col text-right'>
+              <Typography className='capitalize'>
+                ₹{row.original.salaryDirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </Typography>
+            </div>
+          </div>
         )
       }),
       columnHelper.accessor('salaryIndirect', {
-        header: 'Salary Indirect',
+        header: () => <div className='text-right'>Salary Indirect</div>,
         cell: ({ row }) => (
-          <Typography className='capitalize'>
-            ₹{row.original.salaryIndirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-          </Typography>
+          <div className='text-right'>
+            <div className='flex flex-col text-right'>
+              <Typography className='capitalize'>
+                ₹{row.original.salaryIndirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </Typography>
+            </div>
+          </div>
         )
       }),
       columnHelper.accessor('usExpenses', {
-        header: 'US Expenses',
+        header: () => <div className='text-right'>US Expenses</div>,
         cell: ({ row }) => (
-          <Typography>₹{row.original.usExpenses.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Typography>
+          <div className='text-right'>
+            <div className='flex flex-col text-right'>
+              <Typography>₹{row.original.usExpenses.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Typography>
+            </div>
+          </div>
         )
       }),
       columnHelper.accessor('conversionRate', {
-        header: 'Conversion Rate',
-        cell: ({ row }) => <Typography className='capitalize'>₹{row.original.conversionRate}</Typography>
+        header: () => <div className='text-right'>Conversion Rate</div>,
+        cell: ({ row }) => (
+          <div className='text-right'>
+            <div className='flex flex-col text-right'>
+              <Typography className='capitalize'>₹{row.original.conversionRate}</Typography>
+            </div>
+          </div>
+        )
       }),
       columnHelper.accessor('action', {
-        header: 'Action',
+        header: () => <div className='text-right'>Action</div>,
         cell: ({ row }) => (
-          <div className='flex items-center'>
+          <div className='flex items-end justify-end'>
             {/* <IconButton
               onClick={() => {
                 setRowId(row.original.RecordId)
