@@ -69,7 +69,7 @@ const PasswordDialog = ({ open, handleClose }) => {
         confirmPassword: confirmPassword
       }
 
-      const url = `${process.env.API}/auth/reset-password`
+      const url = `${process.env.API}/${process.env.server === 'dev' ? 'auth/reset-password' : 'authresetpassword'}`
 
       const successCallback = (ResponseData, error, ResponseStatus, Message) => {
         if (ResponseStatus === 'success' && error === false) {
