@@ -15,7 +15,7 @@ const DeleteDialog = ({ open, handleClose, rowId, getList }) => {
       recordId: rowId
     }
 
-    const url = `${process.env.API}/${process.env.server === 'dev' ? 'consolidated-data/delete' : 'consolidateddatadelete'}`
+    const url = `${process.env.API}/${process.env.SERVER === 'dev' ? 'consolidated-data/delete' : 'consolidateddatadelete'}`
 
     const successCallback = (ResponseData, error, ResponseStatus, Message) => {
       if (ResponseStatus === 'success' && error === false) {

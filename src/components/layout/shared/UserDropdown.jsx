@@ -63,7 +63,7 @@ const UserDropdown = () => {
       userId: Number(localStorage.getItem('userId'))
     }
 
-    const url = `${process.env.API}/${process.env.server === 'dev' ? 'auth/signout' : 'authsignout'}`
+    const url = `${process.env.API}/${process.env.SERVER === 'dev' ? 'auth/signout' : 'authsignout'}`
 
     const successCallback = (ResponseData, error, ResponseStatus, Message) => {
       if (ResponseStatus === 'success' && error === false) {

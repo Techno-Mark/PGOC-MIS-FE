@@ -4,7 +4,7 @@
 const nextConfig = {
   env: {
     API: process.env.API,
-    server: process.env.server
+    SERVER: process.env.SERVER
   },
 
   // TODO: below line is added to resolve twice event dispatch in the calendar reducer
