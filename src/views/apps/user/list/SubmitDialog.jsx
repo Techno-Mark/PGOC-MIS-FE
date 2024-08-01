@@ -15,7 +15,7 @@ const SubmitDialog = ({ open, handleClose, checkboxId, setCheckboxId, getList })
       recordIds: checkboxId
     }
 
-    const url = `${process.env.API}/consolidated-data/submit`
+    const url = `${process.env.API}/${process.env.server === 'dev' ? 'consolidated-data/submit' : 'consolidateddatasubmit'}`
 
     const successCallback = (ResponseData, error, ResponseStatus, Message) => {
       if (ResponseStatus === 'success' && error === false) {

@@ -127,7 +127,7 @@ const LoginV2 = ({ mode }) => {
         email: email,
         password: password
       }
-      const url = `${process.env.API}/auth/signin`
+      const url = `${process.env.API}/${process.env.server === 'dev' ? 'auth/signin' : 'authsignin'}`
       const successCallback = (ResponseData, error, ResponseStatus, Message) => {
         if (ResponseStatus === 'success' && error === false) {
           toast.success(Message)

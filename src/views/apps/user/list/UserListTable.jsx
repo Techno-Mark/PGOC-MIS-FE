@@ -283,7 +283,7 @@ const UserListTable = () => {
       submitted: true
     }
 
-    const url = `${process.env.API}/consolidated-data/list`
+    const url = `${process.env.API}/${process.env.server === 'dev' ? 'consolidated-data/list' : 'consolidatedDataList'}`
 
     const successCallback = (ResponseData, error, ResponseStatus, Message) => {
       if (ResponseStatus === 'success' && error === false) {

@@ -116,7 +116,7 @@ const AddUserDrawer = ({ open, handleClose, rowId, getList, editData }) => {
         conversionRate: formatConversionRate(formData.expenseRatio)
       }
 
-      const url = `${process.env.API}/consolidated-data/save`
+      const url = `${process.env.API}/${process.env.server === 'dev' ? 'consolidated-data/save' : 'consolidateddatasave'}`
 
       const successCallback = (ResponseData, error, ResponseStatus, Message) => {
         if (ResponseStatus === 'success' && error === false) {
