@@ -164,7 +164,7 @@ const UserListTable = () => {
           <div className='text-right'>
             <div className='flex flex-col text-right'>
               <Typography className='capitalize'>
-                ₹{!!row.original.revenue ? row.original.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
+                ${!!row.original.revenue ? row.original.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '-'}
               </Typography>
             </div>
           </div>
@@ -176,7 +176,7 @@ const UserListTable = () => {
           <div className='text-right'>
             <div className='flex flex-col text-right'>
               <Typography className='capitalize'>
-                ₹{row.original.salaryDirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                ${row.original.salaryDirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Typography>
             </div>
           </div>
@@ -188,7 +188,7 @@ const UserListTable = () => {
           <div className='text-right'>
             <div className='flex flex-col text-right'>
               <Typography className='capitalize'>
-                ₹{row.original.salaryIndirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                ${row.original.salaryIndirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Typography>
             </div>
           </div>
@@ -199,7 +199,7 @@ const UserListTable = () => {
         cell: ({ row }) => (
           <div className='text-right'>
             <div className='flex flex-col text-right'>
-              <Typography>₹{row.original.usExpenses.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Typography>
+              <Typography>${row.original.usExpenses.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}</Typography>
             </div>
           </div>
         )
@@ -209,7 +209,7 @@ const UserListTable = () => {
         cell: ({ row }) => (
           <div className='text-right'>
             <div className='flex flex-col text-right'>
-              <Typography className='capitalize'>₹{row.original.conversionRate}</Typography>
+              <Typography className='capitalize'>${row.original.conversionRate}</Typography>
             </div>
           </div>
         )

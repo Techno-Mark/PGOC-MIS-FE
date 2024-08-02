@@ -35,7 +35,7 @@ const PickersRange = ({ startDateRange, endDateRange, handleOnChangeRange }) => 
         customInput={<CustomInput end={endDateRange} start={startDateRange} label='From Date - To Date' />}
       />
       {(startDateRange || endDateRange) && (
-        <span onClick={() => handleOnChangeRange([null, null])} className='!pt-8'>
+        <span onClick={() => handleOnChangeRange([null, null])} className='!pt-6'>
           <Close />
         </span>
       )}
