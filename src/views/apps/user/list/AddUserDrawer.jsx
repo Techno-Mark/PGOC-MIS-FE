@@ -206,9 +206,9 @@ const AddUserDrawer = ({ open, handleClose, rowId, getList, editData }) => {
       <div>
         <form onSubmit={handleSubmit} className='flex flex-col gap-6 p-6'>
           <CustomTextField
-            label='Revenue (₹)'
+            label='Revenue ($)'
             fullWidth
-            placeholder='Please Enter Revenue (₹)'
+            placeholder='Please Enter Revenue ($)'
             value={formatCommaSeparatedString(formData.revenue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))}
             onChange={e => handleNumberChange(e, 'revenue')}
             onKeyPress={handleKeyPress}
@@ -216,9 +216,9 @@ const AddUserDrawer = ({ open, handleClose, rowId, getList, editData }) => {
             helperText={errors.revenue}
           />
           <CustomTextField
-            label='Salary Direct (₹)'
+            label='Salary Direct ($)'
             fullWidth
-            placeholder='Please Enter Salary Direct (₹)'
+            placeholder='Please Enter Salary Direct ($)'
             value={formatCommaSeparatedString(formData.salaryDirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))}
             onChange={e => handleNumberChange(e, 'salaryDirect')}
             onKeyPress={handleKeyPress}
@@ -226,9 +226,9 @@ const AddUserDrawer = ({ open, handleClose, rowId, getList, editData }) => {
             helperText={errors.salaryDirect}
           />
           <CustomTextField
-            label='Salary Indirect (₹)'
+            label='Salary Indirect ($)'
             fullWidth
-            placeholder='Please Enter Salary Indirect (₹)'
+            placeholder='Please Enter Salary Indirect ($)'
             value={formatCommaSeparatedString(formData.salaryIndirect.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','))}
             onChange={e => handleNumberChange(e, 'salaryIndirect')}
             onKeyPress={handleKeyPress}
